@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+
+<style>
+  
+  #main{
+    background-image: url("{% static 'image/b_wall.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 107vh;
+    
+  }
+
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+ 
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+  </style>
+
+
+
+
+
+<div id="main"class="bg-image shadow-2-strong"style="background-color: rgba(0, 0, 0, 0.8);">
+
+
+  <div class="" style="background-color: rgba(0, 0, 0, 0.8);">
+    <img class="img-fluid mx-auto" src="{% static 'image/abctat.png' %}"width="200"> 
+  
+    
+ 
+
+    <div id="mySidenav" class="sidenav" >
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">Pages</a>
+      <a href="#">Events</a>
+      <a href="#">About</a>
+      <a href="#">Signup</a>
+    </div>
+    
+    <!-- Use any element to open the sidenav -->
+    
+    <!-- Background image -->
+  </div>
+
+
+  
+    <nav class="navbar navbar-dark p-5"style="background-color: rgba(0, 0, 0, 0.8);">
+      <button onclick="openNav()" class="navbar-toggler" type="button" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  
+
+
+  
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+  
+        <div class="container"style="margin-top:-400px;">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-md-8">
+              
+              <form action="{% url 'tlogin' %}" method="POST" class="bg-white rounded-5 shadow-5-strong p-5">
+                {% csrf_token %}
+                <!-- Email input -->
+                <h4 class="text-center">Log in to ABC tutions</h4> <br>
+                <div class="input-group mb-3">
+                  <input type="email" class="form-control" placeholder="Enter Your Email" name="email">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Password input -->
+                <div class="input-group mb-3">
+                  <input type="password" class="form-control" placeholder="Password" name="password">
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                      <label class="form-check-label" for="form1Example3">
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="col text-center">
+                    <!-- Simple link -->
+                    <a href="#!">Forgot password?</a>
+                  </div>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Log in</button> <br>
+                <p>Don't have an account ? <a href="#">Sign up</a></p> 
+
+                {% comment %} <div class="col-12 text-center">
+                  <a href="#">Reset Password</a>
+                </div>  {% endcomment %}
+      
+                
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div> 
+   
+</div>
+    <!-- Background image -->
+
+
+    <script>
+      /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+}
+    </script>
+    
+
+{% endblock %}
+
