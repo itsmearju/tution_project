@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import auth
+from django.contrib import messages
 
 # Create your views here.
 
@@ -8,7 +9,7 @@ def loginPage(request):
     return render(request, 'login.html')
 
 def tlogin(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         email= request.POST['email']      
         password = request.POST['password'] 
        
