@@ -1,0 +1,80 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block page_title %}
+    Student Home
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+
+            {% comment %} Boxes Section Starts {% endcomment %}
+            <div class="row">
+                <div class="col-lg-6 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner text-center">
+                        <h3></h3>
+
+                        <p>Total Attendance</p>
+                    </div>
+                    
+                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                    <div class="inner text-center">
+                        <h3></h3>
+
+                        <p>Absent</p>
+                    </div>
+                    
+                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner text-center">
+                        <h3></h3>
+
+                        <p>Present</p>
+                    </div>
+                    
+                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-secondary">
+                    <div class="inner text-center">
+                        <h3></h3>
+
+                        <p>Total Subjects</p>
+                    </div>
+                    
+                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                </div>
+            {% comment %} Boxes Section Ends {% endcomment %}
+
+           
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}
+
+  {% block custom_js %}
+   
+  {% endblock custom_js %}
