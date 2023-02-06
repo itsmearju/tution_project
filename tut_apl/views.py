@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login, logout
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
+from tut_apl.EmailBackEnd import EmailBackEnd
 
 # Create your views here.
 
@@ -13,7 +14,7 @@ def doLogin(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
-        user = auth.authenticate(request, username=request.POST.get('email'), password=request.POST.get('password'))
+        user = EmailBackEnd.authenticate(request, username=request.POST.get('email'), password=request.POST.get('password'))
         if user != None:
             login(request,user)
             user_type = user.user_type
@@ -35,3 +36,7 @@ def doLogin(request):
             messages.error(request, "Invalid Login Credentials!")
             #return HttpResponseRedirect("/")
             return redirect('/')
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/')
