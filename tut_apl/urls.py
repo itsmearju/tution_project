@@ -21,6 +21,12 @@ path('manage_student',AdminViews.manage_student, name="manage_student"),
 path('edit_student/<student_id>',AdminViews.edit_student, name="edit_student"),
 path('edit_student_save/',AdminViews.edit_student_save, name="edit_student_save"),
 path('delete_student/<student_id>/',AdminViews.delete_student, name="delete_student"),
+path('add_course/', AdminViews.add_course, name="add_course"),
+path('add_course_save/', AdminViews.add_course_save, name="add_course_save"),
+path('manage_course/', AdminViews.manage_course, name="manage_course"),
+path('edit_course/<course_id>/', AdminViews.edit_course, name="edit_course"),
+path('edit_course_save/', AdminViews.edit_course_save, name="edit_course_save"),
+path('delete_course/<course_id>/', AdminViews.delete_course, name="delete_course"),
 
 path('staff_home',StaffViews.staff_home, name="staff_home"),
 

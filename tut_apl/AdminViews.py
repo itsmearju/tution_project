@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from tut_apl.models import CustomUser, Staffs, Students
+from tut_apl.models import CustomUser, Staffs, Students, Courses, SessionYearModel
 from .forms import AddStudentForm, EditStudentForm
 from django.core.files.storage import FileSystemStorage #To upload Profile Picture
 from django.http import HttpResponse, HttpResponseRedirect
@@ -117,7 +117,10 @@ def add_student_save(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             address = form.cleaned_data['address']
+            session_year_id = form.cleaned_data['session_year_id']
+            course_id = form.cleaned_data['course_id']
             gender = form.cleaned_data['gender']
+            phone = form.cleaned_data['phone']
 
             # Getting Profile Pic first
             # First Check whether the file is selected or not
@@ -134,7 +137,14 @@ def add_student_save(request):
             try:
                 user = CustomUser.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=3)
                 user.students.address = address
+
+                course_obj = Courses.objects.get(id=course_id)
+                user.students.course_id = course_obj
+
+                session_year_obj = SessionYearModel.objects.get(id=session_year_id)
+                user.students.session_year_id = session_year_obj
                 user.students.gender = gender
+                user.students.phone = phone
                 user.students.profile_pic = profile_pic_url
                 user.save()
                 messages.success(request, "Student Added Successfully!")
@@ -165,7 +175,10 @@ def edit_student(request, student_id):
     form.fields['first_name'].initial = student.admin.first_name
     form.fields['last_name'].initial = student.admin.last_name
     form.fields['address'].initial = student.address
+    form.fields['phone'].initial = student.phone
+    form.fields['course_id'].initial = student.course_id.id
     form.fields['gender'].initial = student.gender
+    form.fields['session_year_id'].initial = student.session_year_id.id
 
     context = {
         "id": student_id,
@@ -190,7 +203,10 @@ def edit_student_save(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             address = form.cleaned_data['address']
+            phone = form.cleaned_data['phone']
+            course_id = form.cleaned_data['course_id']
             gender = form.cleaned_data['gender']
+            session_year_id = form.cleaned_data['session_year_id']
 
             # Getting Profile Pic first
             # First Check whether the file is selected or not
@@ -215,6 +231,13 @@ def edit_student_save(request):
                 # Then Update Students Table
                 student_model = Students.objects.get(admin=student_id)
                 student_model.address = address
+                student_model.phone = phone
+
+                course = Courses.objects.get(id=course_id)
+                student_model.course_id = course
+
+                session_year_obj = SessionYearModel.objects.get(id=session_year_id)
+                student_model.session_year_id = session_year_obj
 
                 student_model.gender = gender
                 if profile_pic_url != None:
@@ -241,4 +264,73 @@ def delete_student(request, student_id):
     except:
         messages.error(request, "Failed to Delete Student.")
         return redirect('manage_student')
+
+
+def add_course(request):
+    return render(request, "admin_template/add_course_template.html")
+
+
+def add_course_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('add_course')
+    else:
+        course = request.POST.get('course')
+        try:
+            course_model = Courses(course_name=course)
+            course_model.save()
+            messages.success(request, "Course Added Successfully!")
+            return redirect('add_course')
+        except:
+            messages.error(request, "Failed to Add Course!")
+            return redirect('add_course')
+
+
+def manage_course(request):
+    courses = Courses.objects.all()
+    context = {
+        "courses": courses
+    }
+    return render(request, 'admin_template/manage_course_template.html', context)
+
+
+def edit_course(request, course_id):
+    course = Courses.objects.get(id=course_id)
+    context = {
+        "course": course,
+        "id": course_id
+    }
+    return render(request, 'admin_template/edit_course_template.html', context)
+
+
+def edit_course_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method")
+    else:
+        course_id = request.POST.get('course_id')
+        course_name = request.POST.get('course')
+
+        try:
+            course = Courses.objects.get(id=course_id)
+            course.course_name = course_name
+            course.save()
+
+            messages.success(request, "Course Updated Successfully.")
+            return redirect('/edit_course/'+course_id)
+
+        except:
+            messages.error(request, "Failed to Update Course.")
+            return redirect('/edit_course/'+course_id)
+
+
+def delete_course(request, course_id):
+    course = Courses.objects.get(id=course_id)
+    try:
+        course.delete()
+        messages.success(request, "Course Deleted Successfully.")
+        return redirect('manage_course')
+    except:
+        messages.error(request, "Failed to Delete Course.")
+        return redirect('manage_course')
+
 
