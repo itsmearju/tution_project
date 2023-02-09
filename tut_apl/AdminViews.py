@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from tut_apl.models import CustomUser, Staffs, Students, Courses, SessionYearModel
+from tut_apl.models import CustomUser, Staffs, Students, Courses, SessionYearModel, Subjects
 from .forms import AddStudentForm, EditStudentForm
 from django.core.files.storage import FileSystemStorage #To upload Profile Picture
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 
 
@@ -332,5 +333,173 @@ def delete_course(request, course_id):
     except:
         messages.error(request, "Failed to Delete Course.")
         return redirect('manage_course')
+
+def manage_session(request):
+    session_years = SessionYearModel.objects.all()
+    context = {
+        "session_years": session_years
+    }
+    return render(request, "admin_template/manage_session_template.html", context)
+
+
+def add_session(request):
+    return render(request, "admin_template/add_session_template.html")
+
+
+def add_session_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method")
+        return redirect('add_course')
+    else:
+        session_start_year = request.POST.get('session_start_year')
+        session_end_year = request.POST.get('session_end_year')
+
+        try:
+            sessionyear = SessionYearModel(session_start_year=session_start_year, session_end_year=session_end_year)
+            sessionyear.save()
+            messages.success(request, "Session Year added Successfully!")
+            return redirect("add_session")
+        except:
+            messages.error(request, "Failed to Add Session Year")
+            return redirect("add_session")
+
+
+def edit_session(request, session_id):
+    session_year = SessionYearModel.objects.get(id=session_id)
+    context = {
+        "session_year": session_year
+    }
+    return render(request, "admin_template/edit_session_template.html", context)
+
+
+def edit_session_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('manage_session')
+    else:
+        session_id = request.POST.get('session_id')
+        session_start_year = request.POST.get('session_start_year')
+        session_end_year = request.POST.get('session_end_year')
+
+        try:
+            session_year = SessionYearModel.objects.get(id=session_id)
+            session_year.session_start_year = session_start_year
+            session_year.session_end_year = session_end_year
+            session_year.save()
+
+            messages.success(request, "Session Year Updated Successfully.")
+            return redirect('/edit_session/'+session_id)
+        except:
+            messages.error(request, "Failed to Update Session Year.")
+            return redirect('/edit_session/'+session_id)
+
+
+def delete_session(request, session_id):
+    session = SessionYearModel.objects.get(id=session_id)
+    try:
+        session.delete()
+        messages.success(request, "Session Deleted Successfully.")
+        return redirect('manage_session')
+    except:
+        messages.error(request, "Failed to Delete Session.")
+        return redirect('manage_session')
+
+def add_subject(request):
+    courses = Courses.objects.all()
+    staffs = CustomUser.objects.filter(user_type='2')
+    context = {
+        "courses": courses,
+        "staffs": staffs
+    }
+    return render(request, 'admin_template/add_subject_template.html', context)
+
+
+
+def add_subject_save(request):
+    if request.method != "POST":
+        messages.error(request, "Method Not Allowed!")
+        return redirect('add_subject')
+    else:
+        subject_name = request.POST.get('subject')
+
+        course_id = request.POST.get('course')
+        course = Courses.objects.get(id=course_id)
+        
+        staff_id = request.POST.get('staff')
+        staff = CustomUser.objects.get(id=staff_id)
+
+        try:
+            subject = Subjects(subject_name=subject_name, course_id=course, staff_id=staff)
+            subject.save()
+            messages.success(request, "Subject Added Successfully!")
+            return redirect('add_subject')
+        except:
+            messages.error(request, "Failed to Add Subject!")
+            return redirect('add_subject')
+
+
+def manage_subject(request):
+    subjects = Subjects.objects.all()
+    context = {
+        "subjects": subjects
+    }
+    return render(request, 'admin_template/manage_subject_template.html', context)
+
+
+def edit_subject(request, subject_id):
+    subject = Subjects.objects.get(id=subject_id)
+    courses = Courses.objects.all()
+    staffs = CustomUser.objects.filter(user_type='2')
+    context = {
+        "subject": subject,
+        "courses": courses,
+        "staffs": staffs,
+        "id": subject_id
+    }
+    return render(request, 'admin_template/edit_subject_template.html', context)
+
+
+def edit_subject_save(request):
+    if request.method != "POST":
+        HttpResponse("Invalid Method.")
+    else:
+        subject_id = request.POST.get('subject_id')
+        subject_name = request.POST.get('subject')
+        course_id = request.POST.get('course')
+        staff_id = request.POST.get('staff')
+
+        try:
+            subject = Subjects.objects.get(id=subject_id)
+            subject.subject_name = subject_name
+
+            course = Courses.objects.get(id=course_id)
+            subject.course_id = course
+
+            staff = CustomUser.objects.get(id=staff_id)
+            subject.staff_id = staff
+            
+            subject.save()
+
+            messages.success(request, "Subject Updated Successfully.")
+            # return redirect('/edit_subject/'+subject_id)
+            return HttpResponseRedirect(reverse("edit_subject", kwargs={"subject_id":subject_id}))
+
+        except:
+            messages.error(request, "Failed to Update Subject.")
+            return HttpResponseRedirect(reverse("edit_subject", kwargs={"subject_id":subject_id}))
+            # return redirect('/edit_subject/'+subject_id)
+
+
+
+def delete_subject(request, subject_id):
+    subject = Subjects.objects.get(id=subject_id)
+    try:
+        subject.delete()
+        messages.success(request, "Subject Deleted Successfully.")
+        return redirect('manage_subject')
+    except:
+        messages.error(request, "Failed to Delete Subject.")
+        return redirect('manage_subject')
+
 
 

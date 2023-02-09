@@ -56,6 +56,15 @@ class SessionYearModel(models.Model):
     session_end_year = models.DateField()
     objects = models.Manager()
 
+class Subjects(models.Model):
+    id =models.AutoField(primary_key=True)
+    subject_name = models.CharField(max_length=255)
+    course_id = models.ForeignKey(Courses, on_delete=models.CASCADE, default=1) #need to give defauult course
+    staff_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
 
 #Creating Django Signals
 
