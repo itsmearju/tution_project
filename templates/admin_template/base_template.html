@@ -59,7 +59,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
           
-          <a href="#" class="dropdown-item">
+          <a href="{% url 'admin_profile' %}" class="dropdown-item">
             <i class="fas fa-user-edit mr-2"></i> Update Profile
           </a>
 
@@ -105,7 +105,7 @@
     </div>
     <!-- /.content-wrapper -->
    
-
+    {% include 'admin_template/footer.html' %}
     
   </div>
   <!-- ./wrapper -->

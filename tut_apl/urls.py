@@ -8,7 +8,11 @@ path('', views.loginPage, name="login"),
 path('doLogin',views.doLogin, name="doLogin"),
 path('logout_user',views.logout_user, name="logout_user"),
 
+#-----------------Admin views---------------------#
+
 path('admin_home',AdminViews.admin_home, name="admin_home"),
+path('admin_profile/', AdminViews.admin_profile, name="admin_profile"),
+path('admin_profile_update/', AdminViews.admin_profile_update, name="admin_profile_update"),
 path('manage_staff',AdminViews.manage_staff, name="manage_staff"),
 path('add_staff',AdminViews.add_staff, name="add_staff"),
 path('add_staff_save',AdminViews.add_staff_save, name="add_staff_save"),
@@ -40,7 +44,11 @@ path('edit_subject/<subject_id>/', AdminViews.edit_subject, name="edit_subject")
 path('edit_subject_save/', AdminViews.edit_subject_save, name="edit_subject_save"),
 path('delete_subject/<subject_id>/', AdminViews.delete_subject, name="delete_subject"),
 
+#-----------------------staff views---------------------#
+
 path('staff_home',StaffViews.staff_home, name="staff_home"),
+
+#----------------------student views---------------------#
 
 path('student_home',StudentViews.student_home, name="student_home"),
 ]

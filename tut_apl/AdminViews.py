@@ -11,6 +11,41 @@ from django.urls import reverse
 def admin_home(request):
     return render(request, "admin_template/home_content.html")
 
+#-------------------admin profile--------------------------#
+
+def admin_profile(request):
+    user = CustomUser.objects.get(id=request.user.id)
+
+    context={
+        "user": user
+    }
+    return render(request, 'admin_template/admin_profile.html', context)
+
+
+def admin_profile_update(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method!")
+        return redirect('admin_profile')
+    else:
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        password = request.POST.get('password')
+
+        try:
+            customuser = CustomUser.objects.get(id=request.user.id)
+            customuser.first_name = first_name
+            customuser.last_name = last_name
+            if password != None and password != "":
+                customuser.set_password(password)
+            customuser.save()
+            messages.success(request, "Profile Updated Successfully")
+            return redirect('admin_profile')
+        except:
+            messages.error(request, "Failed to Update Profile")
+            return redirect('admin_profile')
+    
+
+#----------------------staff views-----------------------------------------------#
 
 def manage_staff(request):
     staffs = Staffs.objects.all()
@@ -96,6 +131,8 @@ def delete_staff(request, staff_id):
     except:
         messages.error(request, "Failed to Delete Staff.")
         return redirect('manage_staff')
+
+#-------------------------------------student views--------------------------------#
 
 def add_student(request):
     form = AddStudentForm()
@@ -266,6 +303,8 @@ def delete_student(request, student_id):
         messages.error(request, "Failed to Delete Student.")
         return redirect('manage_student')
 
+#-------------------------------course views-------------------------#
+
 
 def add_course(request):
     return render(request, "admin_template/add_course_template.html")
@@ -333,6 +372,9 @@ def delete_course(request, course_id):
     except:
         messages.error(request, "Failed to Delete Course.")
         return redirect('manage_course')
+
+
+#-----------------------------------session (year) views-------------------------#
 
 def manage_session(request):
     session_years = SessionYearModel.objects.all()
@@ -403,6 +445,9 @@ def delete_session(request, session_id):
     except:
         messages.error(request, "Failed to Delete Session.")
         return redirect('manage_session')
+
+
+#----------------------------subject views------------------#
 
 def add_subject(request):
     courses = Courses.objects.all()
