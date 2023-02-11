@@ -47,8 +47,12 @@ path('delete_subject/<subject_id>/', AdminViews.delete_subject, name="delete_sub
 #-----------------------staff views---------------------#
 
 path('staff_home',StaffViews.staff_home, name="staff_home"),
+path('staff_profile/', StaffViews.staff_profile, name="staff_profile"),
+path('staff_profile_update/', StaffViews.staff_profile_update, name="staff_profile_update"),
 
 #----------------------student views---------------------#
 
 path('student_home',StudentViews.student_home, name="student_home"),
+path('student_profile/', StudentViews.student_profile, name="student_profile"),
+path('student_profile_update/', StudentViews.student_profile_update, name="student_profile_update"),
 ]
