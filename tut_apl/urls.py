@@ -6,6 +6,8 @@ from .import AdminViews, StaffViews, StudentViews
 urlpatterns = [
 path('', views.loginPage, name="login"),
 path('doLogin',views.doLogin, name="doLogin"),
+path('student',views.student, name="student"),
+path('reg_student_save',views.reg_student_save, name="reg_student_save"),
 path('logout_user',views.logout_user, name="logout_user"),
 
 #-----------------Admin views---------------------#
@@ -25,6 +27,9 @@ path('manage_student',AdminViews.manage_student, name="manage_student"),
 path('edit_student/<student_id>',AdminViews.edit_student, name="edit_student"),
 path('edit_student_save/',AdminViews.edit_student_save, name="edit_student_save"),
 path('delete_student/<student_id>/',AdminViews.delete_student, name="delete_student"),
+path('check_email_exist/', AdminViews.check_email_exist, name="check_email_exist"),
+path('check_username_exist/', AdminViews.check_username_exist, name="check_username_exist"),
+path('check_phone_exist/', AdminViews.check_phone_exist, name="check_phone_exist"),
 path('add_course/', AdminViews.add_course, name="add_course"),
 path('add_course_save/', AdminViews.add_course_save, name="add_course_save"),
 path('manage_course/', AdminViews.manage_course, name="manage_course"),

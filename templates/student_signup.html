@@ -1,0 +1,294 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  
+
+  /* Height for devices larger than 576px */
+  @media (min-width: 992px) {
+    #intro {
+      margin-top: -58.59px;
+    }
+  }
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+font-size: 1rem;
+line-height: 2.15;
+padding-left: .75em;
+padding-right: .75em;
+}
+.card-registration .select-arrow {
+top: 13px;
+}
+section {
+    background-image: url("{% static 'image/b_wall.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 107vh;
+    
+  }
+  .navbar{
+      font-family:'Varela Round';
+      letter-spacing:.1rem;
+      color: white;
+      font-size: 130%;
+    line-height: 1.5;
+    background-color: rgba(0, 0, 0, 0.01);
+}
+#navbarResponsive a{
+  color: white;
+}
+#navbarResponsive a:hover{
+  color: cornflowerblue;
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+ 
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+ 
+@media screen and (max-width:414px){
+.mask h3{
+  font-size: 24px;
+}
+}
+@media screen and (min-width:768px){
+  .mask img{
+    width: 1000px !important;
+  }
+}
+  
+  </style>
+
+
+<section id="main" class="h-100  shadow-2-strong">
+
+    <div class="" style="background-color: rgba(0, 0, 0, 0.8);">
+      <img class="img-fluid mx-auto" src="{% static 'image/abctat.png' %}"width="250">
+  
+      <div id="mySidenav" class="sidenav" >
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Pages</a>
+        <a href="#">Events</a>
+        <a href="#">About</a>
+        <a href="{% url 'login' %}">Login</a>
+      </div>
+  
+    </div>
+  
+    <nav class="navbar navbar-dark"style="background-color: rgba(0, 0, 0, 0.8);">
+      <button onclick="openNav()" class="navbar-toggler mx-5" type="button" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  
+  
+  
+    <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100 py-5">
+        <div class="col">
+          <div class="card card-registration"style="margin-top: -100px;">
+            <div class="row g-0">
+              <div class="col-lg-6 col-md-0 col-12  d-xl-block">
+                <img src="{% static 'image/signup.png' %}"
+                  alt="Sample photo" class="img-fluid"
+                  style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+              </div>
+              <div class="col-lg-6 col-md-12 col-12">
+                <div class="card-body p-md-5 text-black">
+                  <h3 class="mb-5 text-uppercase">Student registration form</h3>
+  
+                 
+  
+                  
+                  {% url 'reg_student_save' as reg_student_save %}
+                  {% include 'forms_template.html' with messages=messages forms=forms reg_student_save=reg_student_save button_text="Add Student" %}
+                 
+  
+                
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  
+  
+  
+  {% endblock content %}
+
+  {% block custom_js %}
+   
+
+<script>
+  /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+document.getElementById("mySidenav").style.width = "250px";
+document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+document.getElementById("mySidenav").style.width = "0";
+document.getElementById("main").style.marginLeft = "0";
+}
+</script>
+
+
+{% comment %} Checking if email and username already exists or not using Ajax {% endcomment %}
+
+    <script>
+        $(document).ready(function(){
+            // keyup event will be triggered when user leaves keyboard
+            $("#id_email").keyup(function(){
+                var email = $(this).val();
+
+                if(email!=""){
+                    $.ajax({
+                        url : "{% url 'check_email_exist' %}",
+                        type : 'POST',
+                        data : {email:email}
+                    })
+                    .done(function(response){
+                        //console.log(response);
+
+                        if(response == "True"){
+                            $(".email_error").remove();
+                            $("<span class='email_error' style='color: red; padding: 5px; font-weight: bold;'> Email Not Available. </span>").insertAfter("#id_email")
+                        }
+                        else{
+                            $(".email_error").remove();
+                            $("<span class='email_error' style='color: green; padding: 5px; font-weight: bold;'> Email Available. </span>").insertAfter("#id_email")
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    $(".email_error").remove();
+                }
+                
+            })
+
+            $("#id_username").keyup(function(){
+                var username = $(this).val();
+                
+                if(username!=""){
+                    $.ajax({
+                        url : "{% url 'check_username_exist' %}",
+                        type : 'POST',
+                        data : {username:username}
+                    })
+                    .done(function(response){
+                        //console.log(response);
+
+                        if(response == "True"){
+                            $(".username_error").remove();
+                            $("<span class='username_error' style='color: red; padding: 5px; font-weight: bold;'> Username Not Available. </span>").insertAfter("#id_username")
+                        }
+                        else{
+                            $(".username_error").remove();
+                            $("<span class='username_error' style='color: green; padding: 5px; font-weight: bold;'> Username Available. </span>").insertAfter("#id_username")
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    $(".username_error").remove();
+                }
+                
+            })
+
+            $("#phone").keyup(function(){
+                var phone = $(this).val();
+                
+                if(phone!=""){
+                    $.ajax({
+                        url : "{% url 'check_phone_exist' %}",
+                        type : 'POST',
+                        data : {phone:phone}
+                    })
+                    .done(function(response){
+                        //console.log(response);
+
+                        if(response == "True"){
+                            $(".phone_error").remove();
+                            $("<span class='phone_error' style='color: red; padding: 5px; font-weight: bold;'> Phone no. not available </span>").insertAfter("#phone")
+                        }
+                        else{
+                            $(".phone_error").remove();
+                            $("<span class='phone_error' style='color: green; padding: 5px; font-weight: bold;'> Phone no. Available. </span>").insertAfter("#phone")
+                        }
+                    })
+
+                    .fail(function(){
+                        console.log("Failed");
+                    })
+                }
+                else{
+                    $(".phone_error").remove();
+                }
+                
+            })
+        })
+    </script>
+
+
+{% endblock custom_js %}

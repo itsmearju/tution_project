@@ -5,6 +5,9 @@ from .forms import AddStudentForm, EditStudentForm
 from django.core.files.storage import FileSystemStorage #To upload Profile Picture
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+import re
 
 
 
@@ -302,6 +305,42 @@ def delete_student(request, student_id):
     except:
         messages.error(request, "Failed to Delete Student.")
         return redirect('manage_student')
+
+
+@csrf_exempt
+def check_email_exist(request):
+    email = request.POST.get("email")
+    user_obj = CustomUser.objects.filter(email=email).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def check_username_exist(request):
+    username = request.POST.get("username")
+    user_obj = CustomUser.objects.filter(username=username).exists()
+    if user_obj:
+        return HttpResponse(True)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def check_phone_exist(request):
+    phone = request.POST.get("phone")
+
+    if len(phone) == 10:
+        m = re.fullmatch("[6-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]",phone)
+        if m!= None:
+            return HttpResponse(False)
+        else:
+            return HttpResponse(True)
+    else:
+        return HttpResponse(True)
+        
+
 
 #-------------------------------course views-------------------------#
 
