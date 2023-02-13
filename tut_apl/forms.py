@@ -138,6 +138,6 @@ class RegStudentForm(forms.Form):
     profile_pic = forms.FileField(label="Profile Pic", required=True, widget=forms.FileInput(attrs={"class":"form-control-file border","placeholder":"profile pic"}))
     
     email = forms.EmailField(label="Email", max_length=50,widget=forms.EmailInput(attrs={"class":"form-control","placeholder":"Email","id":"id_email"}))
-    password = forms.CharField(label="Password",max_length=50, widget=forms.TextInput(attrs={"class":"form-control","placeholder":"New Password"}))
-    confirm_password = forms.CharField(label='Confirm Password', max_length=50,widget=forms.TextInput(attrs={"class":"form-control","placeholder":"Confirm Password"}))
+    password = forms.CharField(label="Password",max_length=50, widget=forms.TextInput(attrs={"class":"form-control","placeholder":"New Password","id":"password","onclick":"genPassword()"}))
+    confirm_password = forms.CharField(label='Confirm Password', max_length=50,widget=forms.TextInput(attrs={"class":"form-control","placeholder":"Confirm Password","id":"confirm_password"}))
     

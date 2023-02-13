@@ -186,6 +186,75 @@ document.getElementById("main").style.marginLeft = "0";
 }
 </script>
 
+</script>
+
+<!--random password moved into another input field (password)-->
+<script>
+   function gen() {
+    document.getElementById('password').value = document.getElementById('pwd').value;   
+
+};
+</script>
+
+
+<script>
+  function generated() {
+    document.getElementById('password').value = document.getElementById('pswd').value;   
+
+};
+</script>
+
+<!--random password moved into another input field (confirm password)-->
+<script>
+function generate() {
+document.getElementById('confirm_password').value = document.getElementById('pwd').value;   
+
+};
+</script>
+
+<script>
+  function generation() {
+   document.getElementById('confirm_password').value = document.getElementById('pswd').value;   
+};
+</script>
+
+
+<!-- random password generator for 1 id -->
+<script>
+
+  var pswd = document.getElementById("pswd");
+   
+    function genpassword() {
+      var chars = "0123456789abcdefghijklmnopqrstwxyz@#&ABCDEFGHIJKLMNOPQRSTUWXYZ";
+      var passwordLength = 8;
+      var pswd = "";
+    for (var i = 0; i <= passwordLength; i++) {
+      var randomNumber = Math.floor(Math.random() * chars.length);
+      pswd += chars.substring(randomNumber, randomNumber +1);
+    }
+          document.getElementById("pswd").value = pswd;
+    }
+
+</script>
+
+<!-- random pswd generator for 2nd id  -->
+<script>
+
+  var pwd = document.getElementById("pwd");
+   
+    function genPassword() {
+      var chars = "0123456789abcdefghijklmnopqrstwxyz@#&ABCDEFGHIJKLMNOPQRSTUWXYZ";
+      var passwordLength = 8;
+      var pwd = "";
+    for (var i = 0; i <= passwordLength; i++) {
+      var randomNumber = Math.floor(Math.random() * chars.length);
+      pwd += chars.substring(randomNumber, randomNumber +1);
+    }
+          document.getElementById("pwd").value = pwd;
+    }
+
+</script>
+
 
 {% comment %} Checking if email and username already exists or not using Ajax {% endcomment %}
 

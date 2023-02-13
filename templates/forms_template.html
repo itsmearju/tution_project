@@ -100,7 +100,7 @@ input:focus {outline:none!important;}
         </div>
 
        
-        <div class="input-group my-4">
+        <div class="input-group my-4"onclick="genpassword()">
           {{ forms.password }}
           <div class="input-group-append">
             <div class="input-group-text">
@@ -108,6 +108,8 @@ input:focus {outline:none!important;}
             </div>
           </div>
         </div>
+        <label>Suggestions</label>
+        <input id="pwd"onclick="gen();generate()"> <input  id="pswd"onclick="generation();generated()"> 
         
         
 
@@ -123,9 +125,86 @@ input:focus {outline:none!important;}
      
        
         <div class="d-flex justify-content-end ">
-          
           <button type="submit"id="submit" class="btn btn-info btn-lg my-1">Submit form</button>
-          
         </div>
         
     </form>
+
+
+     <!-- Modal alert message-->
+     <div class="modal fade" id="Mymessages" tabindex="-1" role="dialog" aria-labelledby="MymessagesLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         
+          <div class="modal-body text-center">
+            <div class="text-center mt-3">
+                <i class="fas fa-exclamation fa-4x"style="color: red;"></i>
+            </div> 
+            <br>
+            {% comment %} Display Messages {% endcomment %}
+            {% if messages %}
+           
+              {% for i in messages %}
+                {% if i.tags == "error" %}
+                  
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                    <script>
+                      $(document).ready(function(){
+                        $("#Mymessages").modal('show');
+                      });
+                    </script>
+                    <h5>{{ i }}</h5>
+                    
+                {% endif %}
+              {% endfor %}
+            
+            {% endif %}
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"style="width:65px;">Close</button>
+           
+          </div>
+        </div>
+      </div>
+    </div> 
+
+
+
+    <!-- Modal alert message-->
+     <div class="modal fade" id="mymessages" tabindex="-1" role="dialog" aria-labelledby="mymessagesLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         
+          <div class="modal-body text-center">
+            <div class="text-center mt-3">
+                <i class="fas fa-check fa-4x"style="color: green;"></i>
+            </div> 
+            <br>
+            {% comment %} Display Messages {% endcomment %}
+            {% if messages %}
+           
+              {% for i in messages %}
+                {% if i.tags == "success" %}
+                  
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                    <script>
+                      $(document).ready(function(){
+                        $("#mymessages").modal('show');
+                      });
+                    </script>
+                    <h5>{{ i }}</h5>
+                    
+                {% endif %}
+              {% endfor %}
+            
+            {% endif %}
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"style="width:65px;">Close</button>
+           
+          </div>
+        </div>
+      </div>
+    </div> 
