@@ -13,6 +13,22 @@ class CustomUser(AbstractUser):
     user_type_data = ((1, "HOD"), (2, "Staff"), (3, "Student"))
     user_type = models.CharField(default=1, choices=user_type_data, max_length=10)
 
+class Courses(models.Model):
+    id = models.AutoField(primary_key=True)
+    course_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+    def __str__(self):
+	    return self.course_name
+
+class SessionYearModel(models.Model):
+    id = models.AutoField(primary_key=True)
+    session_start_year = models.DateField()
+    session_end_year = models.DateField()
+    objects = models.Manager()
+
 
 class AdminHOD(models.Model):
     id = models.AutoField(primary_key=True)
@@ -39,22 +55,9 @@ class Students(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
+    course_id = models.ForeignKey(Courses, on_delete=models.DO_NOTHING, default=1)
+    session_year_id = models.ForeignKey(SessionYearModel, on_delete=models.CASCADE)
 
-class Courses(models.Model):
-    id = models.AutoField(primary_key=True)
-    course_name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    objects = models.Manager()
-
-    # def __str__(self):
-	#     return self.course_name
-
-class SessionYearModel(models.Model):
-    id = models.AutoField(primary_key=True)
-    session_start_year = models.DateField()
-    session_end_year = models.DateField()
-    objects = models.Manager()
 
 class Subjects(models.Model):
     id =models.AutoField(primary_key=True)

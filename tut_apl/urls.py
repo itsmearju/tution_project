@@ -54,6 +54,13 @@ path('delete_subject/<subject_id>/', AdminViews.delete_subject, name="delete_sub
 path('staff_home',StaffViews.staff_home, name="staff_home"),
 path('staff_profile/', StaffViews.staff_profile, name="staff_profile"),
 path('staff_profile_update/', StaffViews.staff_profile_update, name="staff_profile_update"),
+path('staff_take_attendance/', StaffViews.staff_take_attendance, name="staff_take_attendance"),
+path('get_students/', StaffViews.get_students, name="get_students"),
+path('save_attendance_data/', StaffViews.save_attendance_data, name="save_attendance_data"),
+path('staff_update_attendance/', StaffViews.staff_update_attendance, name="staff_update_attendance"),
+path('get_attendance_dates/', StaffViews.get_attendance_dates, name="get_attendance_dates"),
+path('get_attendance_student/', StaffViews.get_attendance_student, name="get_attendance_student"),
+path('update_attendance_data/', StaffViews.update_attendance_data, name="update_attendance_data"),
 
 #----------------------student views---------------------#
 
