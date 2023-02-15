@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Students, Attendance, AttendanceReport
+from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Attendance, AttendanceReport, Students
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse

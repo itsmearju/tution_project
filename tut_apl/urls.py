@@ -48,6 +48,9 @@ path('manage_subject/', AdminViews.manage_subject, name="manage_subject"),
 path('edit_subject/<subject_id>/', AdminViews.edit_subject, name="edit_subject"),
 path('edit_subject_save/', AdminViews.edit_subject_save, name="edit_subject_save"),
 path('delete_subject/<subject_id>/', AdminViews.delete_subject, name="delete_subject"),
+path('admin_view_attendance/', AdminViews.admin_view_attendance, name="admin_view_attendance"),
+path('admin_get_attendance_dates/', AdminViews.admin_get_attendance_dates, name="admin_get_attendance_dates"),
+path('admin_get_attendance_student/', AdminViews.admin_get_attendance_student, name="admin_get_attendance_student"),
 
 #-----------------------staff views---------------------#
 
@@ -67,4 +70,4 @@ path('update_attendance_data/', StaffViews.update_attendance_data, name="update_
 path('student_home',StudentViews.student_home, name="student_home"),
 path('student_profile/', StudentViews.student_profile, name="student_profile"),
 path('student_profile_update/', StudentViews.student_profile_update, name="student_profile_update"),
-]
+ ]
