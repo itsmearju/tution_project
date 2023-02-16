@@ -64,10 +64,14 @@ path('staff_update_attendance/', StaffViews.staff_update_attendance, name="staff
 path('get_attendance_dates/', StaffViews.get_attendance_dates, name="get_attendance_dates"),
 path('get_attendance_student/', StaffViews.get_attendance_student, name="get_attendance_student"),
 path('update_attendance_data/', StaffViews.update_attendance_data, name="update_attendance_data"),
+path('staff_add_result/', StaffViews.staff_add_result, name="staff_add_result"),
+path('staff_add_result_save/', StaffViews.staff_add_result_save, name="staff_add_result_save"),
 
 #----------------------student views---------------------#
 
 path('student_home',StudentViews.student_home, name="student_home"),
 path('student_profile/', StudentViews.student_profile, name="student_profile"),
 path('student_profile_update/', StudentViews.student_profile_update, name="student_profile_update"),
+path('student_view_attendance/', StudentViews.student_view_attendance, name="student_view_attendance"),
+path('student_view_attendance_post/', StudentViews.student_view_attendance_post, name="student_view_attendance_post"),
  ]
