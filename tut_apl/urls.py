@@ -66,6 +66,8 @@ path('get_attendance_student/', StaffViews.get_attendance_student, name="get_att
 path('update_attendance_data/', StaffViews.update_attendance_data, name="update_attendance_data"),
 path('staff_add_result/', StaffViews.staff_add_result, name="staff_add_result"),
 path('staff_add_result_save/', StaffViews.staff_add_result_save, name="staff_add_result_save"),
+path('staff_apply_leave/', StaffViews.staff_apply_leave, name="staff_apply_leave"),
+path('staff_apply_leave_save/', StaffViews.staff_apply_leave_save, name="staff_apply_leave_save"),
 
 #----------------------student views---------------------#
 
@@ -74,4 +76,7 @@ path('student_profile/', StudentViews.student_profile, name="student_profile"),
 path('student_profile_update/', StudentViews.student_profile_update, name="student_profile_update"),
 path('student_view_attendance/', StudentViews.student_view_attendance, name="student_view_attendance"),
 path('student_view_attendance_post/', StudentViews.student_view_attendance_post, name="student_view_attendance_post"),
+path('student_view_result/', StudentViews.student_view_result, name="student_view_result"),
+path('student_apply_leave/', StudentViews.student_apply_leave, name="student_apply_leave"),
+path('student_apply_leave_save/', StudentViews.student_apply_leave_save, name="student_apply_leave_save"),
  ]
