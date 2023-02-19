@@ -1,0 +1,85 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block page_title %}
+    Notes
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+
+            
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Notes/Assignment</h3>
+                        </div>
+
+                        <div class="card-body">
+                           
+                            <div class="form-group">
+                                <label>Subject </label>
+                                   
+                                    {% for subject in subjects %}
+                                    <a href="#"><h5 value="{{ subject.id }}">{{ subject.subject_name }}</h5></a>
+                                    {% endfor %}
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th>#ID</th>
+                                                <th>Course</th>
+                                                <th>Subject</th>
+                                                <th>Topic</th>
+                                                <th>Created at</th>
+                                                <th>Notes/Assignment</th>
+                                                
+                                                <th>ACTION</th>
+                                                
+                                            </tr>
+                                            </thead>
+                                            
+                                            {% for row in subjects %}
+                                            <tr>
+                                                <td>{{ row.id }}</td>
+                                                <th>{{ row.course_id.course_name }}</th>
+                                                <td>{{ row.subject_id.subject_name }}</td>
+                                                <td>{{ row.topic_name }}</td>
+                                                <td>{{ row.created_at }}</td>
+                                                <td>
+                                                    {% if row.assignment %}
+                                                    <a href="{{ row.assignment.url }}"download="{{ row.assignment.url }}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+                                                    {% endif %}
+                                                </td>
+                                               
+                                                <td>
+                                                    <a href="{% url 'delete_assign' row.id %}" class="btn btn-danger">Delete</a>
+                                                </td>
+                                               
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                               
+                            </div>
+                           
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

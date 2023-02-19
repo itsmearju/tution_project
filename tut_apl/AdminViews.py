@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from tut_apl.models import CustomUser, Staffs, Courses, SessionYearModel, Subjects, Students, Attendance, AttendanceReport
+from tut_apl.models import CustomUser, Staffs, Courses, SessionYearModel, Subjects, Students, Attendance, AttendanceReport, LeaveReportStaff, LeaveReportStudent
 from .forms import AddStudentForm, EditStudentForm
 from django.core.files.storage import FileSystemStorage #To upload Profile Picture
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -638,3 +638,45 @@ def admin_get_attendance_student(request):
 
     return JsonResponse(json.dumps(list_data), content_type="application/json", safe=False)
 
+
+def student_leave_view(request):
+    leaves = LeaveReportStudent.objects.all()
+    context = {
+        "leaves": leaves
+    }
+    return render(request, 'admin_template/student_leave_view.html', context)
+
+def student_leave_approve(request, leave_id):
+    leave = LeaveReportStudent.objects.get(id=leave_id)
+    leave.leave_status = 1
+    leave.save()
+    return redirect('student_leave_view')
+
+
+def student_leave_reject(request, leave_id):
+    leave = LeaveReportStudent.objects.get(id=leave_id)
+    leave.leave_status = 2
+    leave.save()
+    return redirect('student_leave_view')
+
+
+def staff_leave_view(request):
+    leaves = LeaveReportStaff.objects.all()
+    context = {
+        "leaves": leaves
+    }
+    return render(request, 'admin_template/staff_leave_view.html', context)
+
+
+def staff_leave_approve(request, leave_id):
+    leave = LeaveReportStaff.objects.get(id=leave_id)
+    leave.leave_status = 1
+    leave.save()
+    return redirect('staff_leave_view')
+
+
+def staff_leave_reject(request, leave_id):
+    leave = LeaveReportStaff.objects.get(id=leave_id)
+    leave.leave_status = 2
+    leave.save()
+    return redirect('staff_leave_view')

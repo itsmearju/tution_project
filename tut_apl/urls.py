@@ -51,6 +51,12 @@ path('delete_subject/<subject_id>/', AdminViews.delete_subject, name="delete_sub
 path('admin_view_attendance/', AdminViews.admin_view_attendance, name="admin_view_attendance"),
 path('admin_get_attendance_dates/', AdminViews.admin_get_attendance_dates, name="admin_get_attendance_dates"),
 path('admin_get_attendance_student/', AdminViews.admin_get_attendance_student, name="admin_get_attendance_student"),
+path('student_leave_view/', AdminViews.student_leave_view, name="student_leave_view"),
+path('student_leave_approve/<leave_id>/', AdminViews.student_leave_approve, name="student_leave_approve"),
+path('student_leave_reject/<leave_id>/', AdminViews.student_leave_reject, name="student_leave_reject"),
+path('staff_leave_view/', AdminViews.staff_leave_view, name="staff_leave_view"),
+path('staff_leave_approve/<leave_id>/', AdminViews.staff_leave_approve, name="staff_leave_approve"),
+path('staff_leave_reject/<leave_id>/', AdminViews.staff_leave_reject, name="staff_leave_reject"),
 
 #-----------------------staff views---------------------#
 
@@ -68,6 +74,8 @@ path('staff_add_result/', StaffViews.staff_add_result, name="staff_add_result"),
 path('staff_add_result_save/', StaffViews.staff_add_result_save, name="staff_add_result_save"),
 path('staff_apply_leave/', StaffViews.staff_apply_leave, name="staff_apply_leave"),
 path('staff_apply_leave_save/', StaffViews.staff_apply_leave_save, name="staff_apply_leave_save"),
+path('staff_add_note/', StaffViews.staff_add_note, name="staff_add_note"),
+path('staff_add_note_save/', StaffViews.staff_add_note_save, name="staff_add_note_save"),
 
 #----------------------student views---------------------#
 
@@ -79,4 +87,6 @@ path('student_view_attendance_post/', StudentViews.student_view_attendance_post,
 path('student_view_result/', StudentViews.student_view_result, name="student_view_result"),
 path('student_apply_leave/', StudentViews.student_apply_leave, name="student_apply_leave"),
 path('student_apply_leave_save/', StudentViews.student_apply_leave_save, name="student_apply_leave_save"),
+path('student_view_note/', StudentViews.student_view_note, name="student_view_note"),
+path('delete_assign/<assign_id>/', StudentViews.delete_assign, name="delete_assign"),
  ]

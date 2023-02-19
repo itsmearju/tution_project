@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Attendance, AttendanceReport, Students, StudentResult, LeaveReportStaff
+from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Attendance, AttendanceReport, Students, StudentResult, LeaveReportStaff, Courses, StudentNote
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -267,3 +267,43 @@ def staff_apply_leave_save(request):
         except:
             messages.error(request, "Failed to Apply Leave")
             return redirect('staff_apply_leave')
+
+
+
+def staff_add_note(request):
+    courses = Courses.objects.all()
+    subjects = Subjects.objects.filter(staff_id=request.user.id)
+    session_years = SessionYearModel.objects.all()
+    context = {
+        "courses": courses,
+        "subjects": subjects,
+        "session_years": session_years,
+    }
+    return render(request, "staff_template/upload_note.html", context)
+
+
+
+def staff_add_note_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method")
+        return redirect('staff_add_note')
+    else:
+        course_id = request.POST.get('course')
+        course = Courses.objects.get(id=course_id)
+
+        subject = request.POST.get('subject')
+        session_yr = request.POST.get('session_year')
+        topic_n = request.POST.get('topic')
+        file_name = request.FILES.get('note')
+     
+        session_obj = SessionYearModel.objects.get(id=session_yr)
+        subject_obj = Subjects.objects.get(id=subject)
+        
+        try:
+            result = StudentNote(session_year_id=session_obj, course_id=course, subject_id=subject_obj, assignment=file_name, topic_name=topic_n)
+            result.save()
+            messages.success(request, "Note Added Successfully!")
+            return redirect('staff_add_note')
+        except:
+            messages.error(request, "Failed to Add Note!")
+            return redirect('staff_add_note')

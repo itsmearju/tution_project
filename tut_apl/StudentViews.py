@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tut_apl.models import CustomUser, Students, AttendanceReport, Attendance, Subjects, StudentResult, LeaveReportStudent
+from tut_apl.models import CustomUser, Students, AttendanceReport, Attendance, Subjects, StudentResult, LeaveReportStudent, StudentNote
 from django.contrib import messages
 import datetime # To Parse input DateTime into Python Date Time Object
 
@@ -136,3 +136,23 @@ def student_apply_leave_save(request):
         except:
             messages.error(request, "Failed to Apply Leave")
             return redirect('student_apply_leave')
+
+
+def student_view_note(request):
+    student = Students.objects.get(admin=request.user.id) # Getting Logged in Student Data
+    course = student.course_id # Getting Course Enrolled of LoggedIn Student
+    # course = Courses.objects.get(id=student.course_id.id) # Getting Course Enrolled of LoggedIn Student
+    # Getting the Subjects of Course Enrolled
+    subjects = StudentNote.objects.filter(course_id=course)
+    context = {
+        "subjects": subjects
+    }
+    return render(request, "student_template/student_view_note.html",context)
+
+def delete_assign(request, assign_id):
+    assign = StudentNote.objects.get(id=assign_id)
+    try:
+        assign.delete()
+        return redirect('student_view_note')
+    except:
+        return redirect('student_view_note')

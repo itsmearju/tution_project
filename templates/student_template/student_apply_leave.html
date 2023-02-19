@@ -101,6 +101,15 @@
                                         <td>{{ leave.id }}</td>
                                         <td>{{ leave.leave_date }}</td>
                                         <td>{{ leave.leave_message }}</td>
+                                        <td>
+                                            {% if leave.leave_status == 1 %}
+                                                <span class="alert alert-success">Approved</span>
+                                            {% elif leave.leave_status == 2 %}
+                                                <span class="alert alert-danger">Rejected</span>
+                                            {% else %}
+                                                <span class="alert alert-warning">Pending</span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </table>

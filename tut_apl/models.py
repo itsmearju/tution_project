@@ -124,6 +124,19 @@ class LeaveReportStudent(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
 
+
+class StudentNote(models.Model):
+    id = models.AutoField(primary_key=True)
+    student_id = models.ForeignKey(Students, on_delete=models.CASCADE,null=True,blank=True)
+    course_id = models.ForeignKey(Courses, on_delete=models.CASCADE, default=1)
+    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE)
+    session_year_id = models.ForeignKey(SessionYearModel, on_delete=models.CASCADE)
+    topic_name = models.CharField(max_length=50)
+    assignment = models.FileField(upload_to='assignments/%Y/%m/%d',null=True,blank=True) #upload from staff 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
     #Creating Django Signals
 
 # It's like trigger in database. It will run only when Data is Added in CustomUser model
