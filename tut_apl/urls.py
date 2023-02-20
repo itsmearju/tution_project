@@ -57,6 +57,10 @@ path('student_leave_reject/<leave_id>/', AdminViews.student_leave_reject, name="
 path('staff_leave_view/', AdminViews.staff_leave_view, name="staff_leave_view"),
 path('staff_leave_approve/<leave_id>/', AdminViews.staff_leave_approve, name="staff_leave_approve"),
 path('staff_leave_reject/<leave_id>/', AdminViews.staff_leave_reject, name="staff_leave_reject"),
+path('staff_feedback_message/', AdminViews.staff_feedback_message, name="staff_feedback_message"),
+path('staff_feedback_message_reply/', AdminViews.staff_feedback_message_reply, name="staff_feedback_message_reply"),
+path('student_feedback_message/', AdminViews.student_feedback_message, name="student_feedback_message"),
+path('student_feedback_message_reply/', AdminViews.student_feedback_message_reply, name="student_feedback_message_reply"),
 
 #-----------------------staff views---------------------#
 
@@ -76,6 +80,8 @@ path('staff_apply_leave/', StaffViews.staff_apply_leave, name="staff_apply_leave
 path('staff_apply_leave_save/', StaffViews.staff_apply_leave_save, name="staff_apply_leave_save"),
 path('staff_add_note/', StaffViews.staff_add_note, name="staff_add_note"),
 path('staff_add_note_save/', StaffViews.staff_add_note_save, name="staff_add_note_save"),
+path('staff_feedback/', StaffViews.staff_feedback, name="staff_feedback"),
+path('staff_feedback_save/', StaffViews.staff_feedback_save, name="staff_feedback_save"),
 
 #----------------------student views---------------------#
 
@@ -89,4 +95,6 @@ path('student_apply_leave/', StudentViews.student_apply_leave, name="student_app
 path('student_apply_leave_save/', StudentViews.student_apply_leave_save, name="student_apply_leave_save"),
 path('student_view_note/', StudentViews.student_view_note, name="student_view_note"),
 path('delete_assign/<assign_id>/', StudentViews.delete_assign, name="delete_assign"),
+path('student_feedback/', StudentViews.student_feedback, name="student_feedback"),
+path('student_feedback_save/', StudentViews.student_feedback_save, name="student_feedback_save"),
  ]

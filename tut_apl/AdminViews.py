@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from tut_apl.models import CustomUser, Staffs, Courses, SessionYearModel, Subjects, Students, Attendance, AttendanceReport, LeaveReportStaff, LeaveReportStudent
+from tut_apl.models import CustomUser, Staffs, Courses, SessionYearModel, Subjects, Students, Attendance, AttendanceReport, LeaveReportStaff, LeaveReportStudent, FeedBackStaffs, FeedBackStudent
 from .forms import AddStudentForm, EditStudentForm
 from django.core.files.storage import FileSystemStorage #To upload Profile Picture
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -680,3 +680,57 @@ def staff_leave_reject(request, leave_id):
     leave.leave_status = 2
     leave.save()
     return redirect('staff_leave_view')
+
+
+def staff_feedback_message(request):
+    feedbacks = FeedBackStaffs.objects.all()
+    context = {
+        "feedbacks": feedbacks
+    }
+    return render(request, 'admin_template/staff_feedback_template.html', context)
+
+
+@csrf_exempt
+def staff_feedback_message_reply(request):
+    feedback_id = request.POST.get('id')
+    feedback_reply = request.POST.get('reply')
+
+    try:
+        feedback = FeedBackStaffs.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.save()
+        return HttpResponse("True")
+
+    except:
+        return HttpResponse("False")
+
+
+def student_feedback_message(request):
+    feedbacks = FeedBackStudent.objects.all()
+    context = {
+        "feedbacks": feedbacks
+    }
+    return render(request, 'admin_template/student_feedback_template.html', context)
+
+
+@csrf_exempt
+def student_feedback_message_reply(request):
+    feedback_id = request.POST.get('id')
+    feedback_reply = request.POST.get('reply')
+
+    try:
+        feedback = FeedBackStudent.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.save()
+        return HttpResponse("True")
+
+    except:
+        return HttpResponse("False")
+
+
+def staff_feedback_message(request):
+    feedbacks = FeedBackStaffs.objects.all()
+    context = {
+        "feedbacks": feedbacks
+    }
+    return render(request, 'admin_template/staff_feedback_template.html', context)

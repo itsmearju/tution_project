@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Attendance, AttendanceReport, Students, StudentResult, LeaveReportStaff, Courses, StudentNote
+from tut_apl.models import CustomUser, Staffs, Subjects, SessionYearModel, Attendance, AttendanceReport, Students, StudentResult, LeaveReportStaff, Courses, StudentNote, FeedBackStaffs
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -307,3 +307,30 @@ def staff_add_note_save(request):
         except:
             messages.error(request, "Failed to Add Note!")
             return redirect('staff_add_note')
+
+
+def staff_feedback(request):
+    staff_obj = Staffs.objects.get(admin=request.user.id)
+    feedback_data = FeedBackStaffs.objects.filter(staff_id=staff_obj)
+    context = {
+        "feedback_data":feedback_data
+    }
+    return render(request, "staff_template/staff_feedback_template.html", context)
+
+
+def staff_feedback_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method.")
+        return redirect('staff_feedback')
+    else:
+        feedback = request.POST.get('feedback_message')
+        staff_obj = Staffs.objects.get(admin=request.user.id)
+
+        try:
+            add_feedback = FeedBackStaffs(staff_id=staff_obj, feedback=feedback, feedback_reply="")
+            add_feedback.save()
+            messages.success(request, "Feedback Sent.")
+            return redirect('staff_feedback')
+        except:
+            messages.error(request, "Failed to Send Feedback.")
+            return redirect('staff_feedback')

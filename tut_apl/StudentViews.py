@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from tut_apl.models import CustomUser, Students, AttendanceReport, Attendance, Subjects, StudentResult, LeaveReportStudent, StudentNote
+from tut_apl.models import CustomUser, Students, AttendanceReport, Attendance, Subjects, StudentResult, LeaveReportStudent, StudentNote, FeedBackStudent
 from django.contrib import messages
 import datetime # To Parse input DateTime into Python Date Time Object
 
@@ -156,3 +156,30 @@ def delete_assign(request, assign_id):
         return redirect('student_view_note')
     except:
         return redirect('student_view_note')
+
+
+def student_feedback(request):
+    student_obj = Students.objects.get(admin=request.user.id)
+    feedback_data = FeedBackStudent.objects.filter(student_id=student_obj)
+    context = {
+        "feedback_data": feedback_data
+    }
+    return render(request, 'student_template/student_feedback.html', context)
+
+
+def student_feedback_save(request):
+    if request.method != "POST":
+        messages.error(request, "Invalid Method.")
+        return redirect('student_feedback')
+    else:
+        feedback = request.POST.get('feedback_message')
+        student_obj = Students.objects.get(admin=request.user.id)
+
+        try:
+            add_feedback = FeedBackStudent(student_id=student_obj, feedback=feedback, feedback_reply="")
+            add_feedback.save()
+            messages.success(request, "Feedback Sent.")
+            return redirect('student_feedback')
+        except:
+            messages.error(request, "Failed to Send Feedback.")
+            return redirect('student_feedback')
