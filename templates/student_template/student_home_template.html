@@ -17,12 +17,12 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner text-center">
-                        <h3></h3>
+                        <h3>{{ total_attendance }}</h3>
 
                         <p>Total Attendance</p>
                     </div>
                     
-                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -30,12 +30,12 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                     <div class="inner text-center">
-                        <h3></h3>
+                        <h3>{{ attendance_absent }}</h3>
 
                         <p>Absent</p>
                     </div>
                     
-                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -43,12 +43,12 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                     <div class="inner text-center">
-                        <h3></h3>
+                        <h3>{{ attendance_present }}</h3>
 
                         <p>Present</p>
                     </div>
                     
-                    <a href="#" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{% url 'student_view_attendance' %}" class="small-box-footer">Show info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -56,7 +56,7 @@
                     <!-- small box -->
                     <div class="small-box bg-secondary">
                     <div class="inner text-center">
-                        <h3></h3>
+                        <h3>{{ total_subjects }}</h3>
 
                         <p>Total Subjects</p>
                     </div>
