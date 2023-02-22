@@ -4,7 +4,10 @@ from .import AdminViews, StaffViews, StudentViews
 
 
 urlpatterns = [
-path('', views.loginPage, name="login"),
+
+path('', views.about, name="about"),
+path('homepage', views.homepage, name="homepage"),
+path('login', views.loginPage, name="login"),
 path('doLogin',views.doLogin, name="doLogin"),
 path('student',views.student, name="student"),
 path('reg_student_save',views.reg_student_save, name="reg_student_save"),

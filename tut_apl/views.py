@@ -10,6 +10,12 @@ from .forms import RegStudentForm
 
 # Create your views here.
 
+def about(request):
+    return render(request,'abc.html')
+
+def homepage(request):
+    return render(request,'home.html')
+
 def loginPage(request):
     return render(request, 'login.html')
 
