@@ -82,7 +82,7 @@
 
     <div id="mySidenav" class="sidenav" >
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="#">Home</a>
+      <a href="{% url 'about' %}">Home</a>
       <a href="#">Courses</a>
       <a href="#">Pages</a>
       <a href="#">Events</a>
@@ -163,6 +163,48 @@
       
                 
               </form>
+
+                                                                                    <!-- Modal alert message-->
+<div class="modal fade" id="Mymessage" tabindex="-1" role="dialog" aria-labelledby="MymessageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    
+      <div class="modal-body text-center">
+        <div class="text-center mt-3">
+            <i class="fas fa-info-circle fa-6x"style="color: lightblue;"></i>
+        </div> 
+        <br>
+        {% comment %} Display Messages {% endcomment %}
+        {% if messages %}
+       
+          {% for message in messages %}
+            {% if message.tags == "error" %}
+              
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script>
+                  $(document).ready(function(){
+                    $("#Mymessage").modal('show');
+                  });
+                </script>
+                <h5>{{ message }}</h5>
+
+                {% elif message.tags == "success" %}
+
+                <h5>{{ message }}</h5>
+                
+            {% endif %}
+          {% endfor %}
+        
+        {% endif %}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"style="width:65px;">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
 
             </div>
           </div>

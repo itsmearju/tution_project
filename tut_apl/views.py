@@ -40,11 +40,11 @@ def doLogin(request):
                 return redirect('student_home')
             else:
                 messages.error(request, "Invalid Login!")
-                return redirect('/')
+                return redirect('login')
         else:
             messages.error(request, "Invalid Login Credentials!")
             #return HttpResponseRedirect("/")
-            return redirect('/')
+            return redirect('login')
 
 
 def student(request):
