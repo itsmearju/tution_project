@@ -381,6 +381,8 @@ def delete_student(request, student_id):
         return redirect('manage_student')
 
 
+#--------------------validation for registration---------------------#
+
 @csrf_exempt
 def check_email_exist(request):
     email = request.POST.get("email")
@@ -712,6 +714,9 @@ def admin_get_attendance_student(request):
     return JsonResponse(json.dumps(list_data), content_type="application/json", safe=False)
 
 
+#---------------for  leave ----------------------#
+
+
 def student_leave_view(request):
     leaves = LeaveReportStudent.objects.all()
     context = {
@@ -753,6 +758,9 @@ def staff_leave_reject(request, leave_id):
     leave.leave_status = 2
     leave.save()
     return redirect('staff_leave_view')
+
+
+#---------------------------for  feedback-------------#
 
 
 def staff_feedback_message(request):

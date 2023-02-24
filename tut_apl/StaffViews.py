@@ -62,6 +62,8 @@ def staff_home(request):
     }
     return render(request, "staff_template/staff_home_template.html", context)
 
+#--------------staff  profile------------#
+
 def staff_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
     staff = Staffs.objects.get(admin=user)
@@ -101,7 +103,7 @@ def staff_profile_update(request):
             messages.error(request, "Failed to Update Profile")
             return redirect('staff_profile')
 
-
+#-----------------attendance ------------------#
 
 def staff_take_attendance(request):
     subjects = Subjects.objects.filter(staff_id=request.user.id)
@@ -249,7 +251,7 @@ def update_attendance_data(request):
     except:
         return HttpResponse("Error")
 
-
+#-------------------result---------------------#
 
 def staff_add_result(request):
     subjects = Subjects.objects.filter(staff_id=request.user.id)
@@ -293,6 +295,7 @@ def staff_add_result_save(request):
             messages.error(request, "Failed to Add Result!")
             return redirect('staff_add_result')
 
+#--------------------leave-------------------#
 
 def staff_apply_leave(request):
     staff_obj = Staffs.objects.get(admin=request.user.id)
@@ -321,7 +324,7 @@ def staff_apply_leave_save(request):
             messages.error(request, "Failed to Apply Leave")
             return redirect('staff_apply_leave')
 
-
+#---------------note to sutudent-----------------#
 
 def staff_add_note(request):
     courses = Courses.objects.all()
@@ -361,6 +364,7 @@ def staff_add_note_save(request):
             messages.error(request, "Failed to Add Note!")
             return redirect('staff_add_note')
 
+#---------------feedback------------------#
 
 def staff_feedback(request):
     staff_obj = Staffs.objects.get(admin=request.user.id)

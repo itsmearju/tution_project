@@ -126,6 +126,14 @@ def reg_student_save(request):
         else:
             messages.error(request, "form not valid!")
             return redirect('student')
+        
+
+def get_user_details(request):
+    if request.user != None:
+        return HttpResponse("User: "+request.user.email+" User Type: "+request.user.user_type)
+    else:
+        return HttpResponse("Please Login First")
+
 
 
 def logout_user(request):

@@ -11,6 +11,7 @@ path('login', views.loginPage, name="login"),
 path('doLogin',views.doLogin, name="doLogin"),
 path('student',views.student, name="student"),
 path('reg_student_save',views.reg_student_save, name="reg_student_save"),
+path('get_user_details/', views.get_user_details, name="get_user_details"),
 path('logout_user',views.logout_user, name="logout_user"),
 
 #-----------------Admin views---------------------#

@@ -40,6 +40,7 @@ def student_home(request):
     }
     return render(request, "student_template/student_home_template.html", context)
 
+#----------------------student profile---------------------#
 
 def student_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
@@ -82,6 +83,7 @@ def student_profile_update(request):
             messages.error(request, "Failed to Update Profile")
             return redirect('student_profile')
 
+#------------------------view attendance------------------#
 
 def student_view_attendance(request):
     student = Students.objects.get(admin=request.user.id) # Getting Logged in Student Data
@@ -132,6 +134,7 @@ def student_view_attendance_post(request):
 
         return render(request, 'student_template/student_attendance_data.html', context)
 
+#-----------------viewv result-------------------#
 
 def student_view_result(request):
     student = Students.objects.get(admin=request.user.id)
@@ -141,7 +144,7 @@ def student_view_result(request):
     }
     return render(request, "student_template/student_view_result.html", context)
 
-
+#-----------------------------leave --------------#
 
 def student_apply_leave(request):
     student_obj = Students.objects.get(admin=request.user.id)
@@ -170,6 +173,7 @@ def student_apply_leave_save(request):
             messages.error(request, "Failed to Apply Leave")
             return redirect('student_apply_leave')
 
+#--------------note view ------------------------#
 
 def student_view_note(request):
     student = Students.objects.get(admin=request.user.id) # Getting Logged in Student Data
@@ -190,6 +194,7 @@ def delete_assign(request, assign_id):
     except:
         return redirect('student_view_note')
 
+#----------------------feedback--------------------#
 
 def student_feedback(request):
     student_obj = Students.objects.get(admin=request.user.id)
