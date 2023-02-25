@@ -105,13 +105,20 @@ section {
   .mask h3{
     font-family: 'Montserrat', sans-serif;
   }
+  #main{
+    /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
   </style>
 
 
 <section id="main" class="h-100  shadow-2-strong">
 
     <div class="" style="background-color: rgba(0, 0, 0, 0.8);">
-      <img class="img-fluid mx-auto" src="{% static 'image/abctat.png' %}"width="250">
+      <!-- <img class="img-fluid mx-auto" src="{% static 'image/abctat.png' %}"width="250"> -->
   
       <div id="mySidenav" class="sidenav" >
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -137,10 +144,10 @@ section {
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100 py-5">
         <div class="col">
-          <div class="card card-registration"style="margin-top: -100px;">
+          <div class="card card-registration"style="margin-top: -80px;">
             <div class="row g-0">
               <div class="col-lg-6 col-md-0 col-12  d-xl-block">
-                <img src="{% static 'image/register.JPG' %}"
+                <img src="{% static 'image/register.jpg' %}"
                   alt="Sample photo" class="img-fluid"
                   style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
               </div>
